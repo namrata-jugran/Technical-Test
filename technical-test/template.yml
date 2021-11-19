@@ -1,0 +1,28 @@
+# This is the SAM Project that represents the architecture of your serverless application
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  Technical-Test
+
+Transform:
+- AWS::Serverless-2016-10-31
+
+Resources:  
+  techTestLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/tech-test.handler
+      Runtime: nodejs14.x
+      MemorySize: 128
+      Timeout: 100
+      Description: Lambda function to fetch all data and process according to requirement.      
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
+
+Outputs:
+  WebEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
